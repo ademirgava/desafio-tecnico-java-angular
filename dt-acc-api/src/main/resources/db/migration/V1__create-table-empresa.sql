@@ -1,0 +1,6 @@
+CREATE TABLE empresas( 
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    cnpj VARCHAR(14) NOT NULL,
+    nome_fantasia VARCHAR(130),
+    cep VARCHAR(9)
+);
