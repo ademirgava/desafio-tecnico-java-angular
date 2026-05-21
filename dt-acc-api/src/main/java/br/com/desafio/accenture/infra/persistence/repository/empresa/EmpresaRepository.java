@@ -10,4 +10,6 @@ public interface EmpresaRepository extends JpaRepository<EmpresaEntity, Long>{
 
 	boolean existsByCnpjAndIdNot(String cnpj, Long empresaId);
 
+	boolean existsByIdAndFornecedoresId(Long idEmpresa, Long idFornecedor);
+
 }

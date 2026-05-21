@@ -13,10 +13,13 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.desafio.accenture.application.dto.empresa.EmpresaRequestDTO;
 import br.com.desafio.accenture.application.dto.empresa.EmpresaResponseDTO;
+import br.com.desafio.accenture.application.dto.fornecedor.FornecedorIdRequestDTO;
 import br.com.desafio.accenture.application.usecase.empresa.AtualizarEmpresaUseCase;
 import br.com.desafio.accenture.application.usecase.empresa.BuscarPorIdEmpresaUseCase;
 import br.com.desafio.accenture.application.usecase.empresa.CriarEmpresaUseCase;
 import br.com.desafio.accenture.application.usecase.empresa.DeletarEmpresaUseCase;
+import br.com.desafio.accenture.application.usecase.empresa.DesvincularFornecedorEmpresaUseCase;
+import br.com.desafio.accenture.application.usecase.empresa.VincularFornecedorEmpresaUseCase;
 import jakarta.transaction.Transactional;
 
 @RestController
@@ -27,13 +30,19 @@ public class EmpresaController {
 	private final BuscarPorIdEmpresaUseCase buscarPorIdEmpresaUseCase;
 	private final DeletarEmpresaUseCase deletarEmpresaUseCase;
 	private final AtualizarEmpresaUseCase atualizarEmpresaUseCase;
+	private final VincularFornecedorEmpresaUseCase vincularFornecedorEmpresaUseCase;
+	private final DesvincularFornecedorEmpresaUseCase desvincularFornecedorEmpresaUseCase;
 
 	public EmpresaController(CriarEmpresaUseCase criarEmpresaUseCase,
-			BuscarPorIdEmpresaUseCase buscarPorIdEmpresaUseCase, DeletarEmpresaUseCase deletarEmpresaUseCase, AtualizarEmpresaUseCase atualizarEmpresaUseCase) {
+			BuscarPorIdEmpresaUseCase buscarPorIdEmpresaUseCase, DeletarEmpresaUseCase deletarEmpresaUseCase,
+			AtualizarEmpresaUseCase atualizarEmpresaUseCase,
+			VincularFornecedorEmpresaUseCase vincularFornecedorEmpresaUseCase, DesvincularFornecedorEmpresaUseCase desvincularFornecedorEmpresaUseCase) {
 		this.criarEmpresaUseCase = criarEmpresaUseCase;
 		this.buscarPorIdEmpresaUseCase = buscarPorIdEmpresaUseCase;
 		this.deletarEmpresaUseCase = deletarEmpresaUseCase;
 		this.atualizarEmpresaUseCase = atualizarEmpresaUseCase;
+		this.vincularFornecedorEmpresaUseCase = vincularFornecedorEmpresaUseCase;
+		this.desvincularFornecedorEmpresaUseCase = desvincularFornecedorEmpresaUseCase;
 	}
 
 	@PostMapping
@@ -55,10 +64,22 @@ public class EmpresaController {
 		this.deletarEmpresaUseCase.deletar(id);
 		return ResponseEntity.noContent().build();
 	}
-	
+
 	@PutMapping("/{id}")
 	@Transactional
 	public ResponseEntity<EmpresaResponseDTO> atualizar(@PathVariable Long id, @RequestBody EmpresaRequestDTO dto) {
 		return ResponseEntity.ok(this.atualizarEmpresaUseCase.atualizar(dto, id));
+	}
+
+	@PutMapping("/vincular/{id}")
+	@Transactional
+	public ResponseEntity<EmpresaResponseDTO> vincular(@PathVariable Long id, @RequestBody FornecedorIdRequestDTO dto) {
+		return ResponseEntity.ok(this.vincularFornecedorEmpresaUseCase.vincular(dto, id));
+	}
+
+	@PutMapping("/desvincular/{id}")
+	@Transactional
+	public ResponseEntity<EmpresaResponseDTO> desvincular(@PathVariable Long id, @RequestBody FornecedorIdRequestDTO dto) {
+		return ResponseEntity.ok(this.desvincularFornecedorEmpresaUseCase.desvincular(dto, id));
 	}
 }

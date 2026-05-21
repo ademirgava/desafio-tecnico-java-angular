@@ -18,4 +18,10 @@ public interface RepositorioDeEmpresa {
 
 	boolean existsByCnpjAndNotId(String cnpj, Long empresaId);
 
+	Empresa adicionarFornecedor(Long idFornecedor, Long idEmpresa);
+
+	boolean existsByIdAndFornecedorId(Long idEmpresa, Long idFornecedor);
+
+	Empresa removerFornecedor(Long idFornecedor, Long idEmpresa);
+
 }
