@@ -1,0 +1,32 @@
+.tabela {
+    border: 1px solid #dcdcdc;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    padding: 16px;
+    background-color: #fff;
+}
+
+.paginacao {
+  margin-top: 16px;
+  display: flex;
+  gap: 8px;
+    display: flex;
+  justify-content: flex-end;
+}
+
+button {
+   border: none;
+}
+
+.ativo {
+    background-color: #e2f6e9;
+    color: #9bdab2;
+}
+
+.icon {
+  color: #9bdab2;
+}
+
+.icon-first-page {
+  transform: rotate(180deg);
+}
