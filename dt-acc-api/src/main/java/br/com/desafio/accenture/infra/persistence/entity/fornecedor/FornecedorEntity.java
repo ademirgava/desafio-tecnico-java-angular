@@ -3,6 +3,7 @@ package br.com.desafio.accenture.infra.persistence.entity.fornecedor;
 import java.time.LocalDate;
 import java.util.List;
 
+import br.com.desafio.accenture.domain.model.Fornecedor;
 import br.com.desafio.accenture.domain.model.TipoPessoa;
 import br.com.desafio.accenture.infra.persistence.entity.empresa.EmpresaEntity;
 import jakarta.persistence.Column;
@@ -50,6 +51,21 @@ public class FornecedorEntity {
 
 	public FornecedorEntity(Long id) {
 		this.id = id;
+	}
+
+	public void atualizar(Fornecedor fornecedor) {
+		this.tipoPessoa = fornecedor.getTipoPessoa();
+		this.nome = fornecedor.getNome();
+		this.cep = fornecedor.getCep();
+		this.email = fornecedor.getEmail();
+
+		if (TipoPessoa.JURIDICA.equals(this.tipoPessoa)) {
+			this.cnpj = fornecedor.getCnpj().getValue();
+		} else {
+			this.cpf = fornecedor.getCpf().getValue();
+			this.rg = fornecedor.getRg();
+			this.dataNascimento = fornecedor.getDataNascimento();
+		}
 	}
 
 }

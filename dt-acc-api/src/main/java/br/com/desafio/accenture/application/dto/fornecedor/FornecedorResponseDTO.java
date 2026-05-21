@@ -11,7 +11,7 @@ public record FornecedorResponseDTO(Long id, TipoPessoa tipoPessoa, String cnpj,
 		String email, String rg, LocalDate dataNascimento, List<EmpresaResponseDTO> empresas) {
 
 	public FornecedorResponseDTO(Fornecedor fornecedor) {
-		this(fornecedor.getId(), fornecedor.getTipoPessoa(), fornecedor.getCnpj(), fornecedor.getCpf(),
+		this(fornecedor.getId(), fornecedor.getTipoPessoa(), fornecedor.getCnpj() != null ? fornecedor.getCnpj().getValue() : null, fornecedor.getCpf() != null ? fornecedor.getCpf().getValue() : null,
 				fornecedor.getNome(), fornecedor.getCep(), fornecedor.getEmail(), fornecedor.getRg(),
 				fornecedor.getDataNascimento(), null);
 	}
