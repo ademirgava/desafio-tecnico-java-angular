@@ -9,7 +9,7 @@ export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'lista-empresas', component: ListaEmpresasComponent },
-  { path: 'formulario-empresas', component: FormularioEmpresaComponent },
+  { path: 'formulario-empresa', component: FormularioEmpresaComponent },
   { path: 'lista-fornecedores', component: ListaFornecedoresComponent },
   { path: 'formulario-fornecedor', component: FormularioFornecedorComponent },
 ];
