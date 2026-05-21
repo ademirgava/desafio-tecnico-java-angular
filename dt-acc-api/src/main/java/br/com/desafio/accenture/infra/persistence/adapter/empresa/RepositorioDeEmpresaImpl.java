@@ -6,16 +6,20 @@ import br.com.desafio.accenture.application.mapper.empresa.EmpresaMapper;
 import br.com.desafio.accenture.domain.model.Empresa;
 import br.com.desafio.accenture.domain.repository.empresa.RepositorioDeEmpresa;
 import br.com.desafio.accenture.infra.persistence.entity.empresa.EmpresaEntity;
+import br.com.desafio.accenture.infra.persistence.entity.fornecedor.FornecedorEntity;
 import br.com.desafio.accenture.infra.persistence.repository.empresa.EmpresaRepository;
+import br.com.desafio.accenture.infra.persistence.repository.fornecedor.FornecedorRepository;
 
 public class RepositorioDeEmpresaImpl implements RepositorioDeEmpresa {
 
 	private final EmpresaRepository repository;
 	private final EmpresaMapper mapper;
+	private final FornecedorRepository fornecedorRepository;
 
-	public RepositorioDeEmpresaImpl(EmpresaRepository repository, EmpresaMapper mapper) {
+	public RepositorioDeEmpresaImpl(EmpresaRepository repository, EmpresaMapper mapper, FornecedorRepository fornecedorRepository) {
 		this.repository = repository;
 		this.mapper = mapper;
+		this.fornecedorRepository = fornecedorRepository;
 	}
 
 	@Override
@@ -53,6 +57,27 @@ public class RepositorioDeEmpresaImpl implements RepositorioDeEmpresa {
 	@Override
 	public boolean existsByCnpjAndNotId(String cnpj, Long empresaId) {
 		return this.repository.existsByCnpjAndIdNot(cnpj, empresaId);
+	}
+
+	@Override
+	public Empresa adicionarFornecedor(Long idFornecedor, Long idEmpresa) {
+		EmpresaEntity empresaEntity = this.repository.getReferenceById(idEmpresa);
+		FornecedorEntity fornecedorEntity = this.fornecedorRepository.getReferenceById(idFornecedor);
+		empresaEntity.getFornecedores().add(fornecedorEntity);
+		return this.mapper.toDomain(empresaEntity);
+	}
+
+	@Override
+	public boolean existsByIdAndFornecedorId(Long idEmpresa, Long idFornecedor) {
+		return this.repository.existsByIdAndFornecedoresId(idEmpresa, idFornecedor);
+	}
+
+	@Override
+	public Empresa removerFornecedor(Long idFornecedor, Long idEmpresa) {
+		EmpresaEntity empresaEntity = this.repository.getReferenceById(idEmpresa);
+		FornecedorEntity fornecedorEntity = this.fornecedorRepository.getReferenceById(idFornecedor);
+		empresaEntity.getFornecedores().remove(fornecedorEntity);
+		return this.mapper.toDomain(empresaEntity);
 	}
 
 }

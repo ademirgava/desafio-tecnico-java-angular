@@ -92,4 +92,8 @@ public class Empresa {
 		this.fornecedores = fornecedores;
 	}
 
+	public void addFornecedor(Fornecedor fornecedor) {
+		this.fornecedores.add(fornecedor);
+	}
+
 }
