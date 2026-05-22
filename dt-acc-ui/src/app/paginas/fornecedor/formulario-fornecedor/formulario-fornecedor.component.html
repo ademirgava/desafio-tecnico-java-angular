@@ -1,1 +1,100 @@
-<p>formulario-fornecedor.component works!</p>
+<div class="container">
+  @if (isErro()) {
+    <label class="error">{{ mensagemDeErro() }}</label>
+  }
+
+  <form class="row" [formGroup]="fornecedorForm" (ngSubmit)="salvarFornecedor()">
+    <div class="row g-3 col-md-12 dados">
+      <div class="col-8">
+        <label for="inputNome" class="form-label">Nome</label>
+        <input
+          type="text"
+          class="form-control"
+          id="Nome"
+          placeholder="Nome"
+          formControlName="nome"
+        />
+      </div>
+      <div class="col-4">
+        <label for="inputEmail" class="form-label">E-mail</label>
+        <input
+          type="text"
+          class="form-control"
+          id="email"
+          placeholder="E-mail"
+          formControlName="email"
+        />
+      </div>
+      <div class="col-4">
+        <label for="inputCep" class="form-label">CEP</label>
+        <input
+          type="text"
+          class="form-control"
+          id="cep"
+          placeholder="00000-000"
+          formControlName="cep"
+          (change)="onChangeCepla($event)"
+        />
+      </div>
+      <div class="col-md-4">
+        <label for="inputTipo" class="form-label">Tipo</label>
+        <select [value]="selectedTipo()" (change)="onTipoChange($event)" class="form-select">
+          @for (tipo of tipos; track tipo) {
+            <option [value]="tipo">{{ tipo }}</option>
+          }
+        </select>
+      </div>
+      @if (isPessoaFisica()) {
+        <div class="col-md-4">
+          <label for="inputCpf" class="form-label">CPF</label>
+          <input
+            type="text"
+            class="form-control"
+            id="cpf"
+            placeholder="CPF"
+            formControlName="cpf"
+          />
+        </div>
+        <div class="col-md-4">
+          <label for="inputRg" class="form-label">RG</label>
+          <input type="text" class="form-control" id="rg" placeholder="RG" formControlName="rg" />
+        </div>
+        <div class="col-md-4">
+          <label for="inputDataNascimento" class="form-label">Data de Nascimento</label>
+          <input
+            type="text"
+            class="form-control"
+            id="dataNascimento"
+            placeholder="01-01-1000"
+            formControlName="dataNascimento"
+          />
+        </div>
+      } @else {
+        <div class="col-md-4">
+          <label for="inputCnpj" class="form-label">CNPJ</label>
+          <input
+            type="text"
+            class="form-control"
+            id="cnpj"
+            placeholder="CNPJ"
+            formControlName="cnpj"
+          />
+        </div>
+      }
+      <div class="col-md-6"></div>
+    </div>
+    <div class="col-md-4">
+      <button
+        class="btn btn-primary"
+        [disabled]="fornecedorForm.invalid"
+        [ngClass]="fornecedorForm.valid ? '' : 'btn btn-light'"
+        type="submit"
+      >
+        Salvar
+      </button>
+    </div>
+    <div class="col-md-4">
+      <button (click)="cancelar()" type="button" class="btn btn-danger">Cancelar</button>
+    </div>
+  </form>
+</div>

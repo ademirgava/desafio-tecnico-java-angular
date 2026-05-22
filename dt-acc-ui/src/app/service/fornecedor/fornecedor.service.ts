@@ -12,7 +12,7 @@ export class FornecedorService {
   private http = inject(HttpClient);
 
   obterFornecedores(): Observable<Page> {
-    return this.http.get<Page>(this.API);
+    return this.http.get<Page>('/api/fornecedores');
   }
 
   obterFornecedoresPorNome(nome: string): Observable<Fornecedor[]> {
@@ -27,7 +27,14 @@ export class FornecedorService {
     return this.http.get<Fornecedor[]>(`${this.API}?cnpj=${cnpj}`);
   }
 
-  salvarFornecedor(fornecedor: Fornecedor): Observable<Fornecedor> {
+  salvarOuEditarFornecedor(fornecedor: Fornecedor): Observable<Fornecedor> {
+    if (fornecedor.id) {
+      return this.editarFornecedor(fornecedor);
+    }
     return this.http.post<Fornecedor>(this.API, fornecedor);
+  }
+
+  editarFornecedor(fornecedor: Fornecedor): Observable<Fornecedor> {
+    return this.http.put<Fornecedor>(`${this.API}/${fornecedor.id}`, fornecedor);
   }
 }

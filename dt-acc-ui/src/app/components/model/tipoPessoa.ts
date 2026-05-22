@@ -1,4 +1,4 @@
 export enum TipoPessoa {
-  FISICA,
-  JURIDICA,
+  FISICA = 'FISICA',
+  JURIDICA = 'JURIDICA',
 }
