@@ -10,6 +10,7 @@ import br.com.desafio.accenture.application.usecase.empresa.BuscarPorIdEmpresaUs
 import br.com.desafio.accenture.application.usecase.empresa.CriarEmpresaUseCase;
 import br.com.desafio.accenture.application.usecase.empresa.DeletarEmpresaUseCase;
 import br.com.desafio.accenture.application.usecase.empresa.DesvincularFornecedorEmpresaUseCase;
+import br.com.desafio.accenture.application.usecase.empresa.ListarEmpresaUseCase;
 import br.com.desafio.accenture.application.usecase.empresa.VincularFornecedorEmpresaUseCase;
 import br.com.desafio.accenture.application.usecase.fornecedor.BuscarPorIdFornecedorUseCase;
 import br.com.desafio.accenture.domain.repository.empresa.RepositorioDeEmpresa;
@@ -38,6 +39,11 @@ public class EmpresaConfig {
 	@Bean 
 	public DeletarEmpresaUseCase deletarEmpresaUseCase(RepositorioDeEmpresa repositorio) {
 		return new DeletarEmpresaUseCase(repositorio);
+	}
+	
+	@Bean
+	public ListarEmpresaUseCase listarEmpresaUseCase(RepositorioDeEmpresa repositorio) {
+		return new ListarEmpresaUseCase(repositorio);
 	}
 	
 	@Bean

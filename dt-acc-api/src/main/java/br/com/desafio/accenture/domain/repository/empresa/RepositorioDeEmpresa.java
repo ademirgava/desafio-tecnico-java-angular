@@ -1,5 +1,6 @@
 package br.com.desafio.accenture.domain.repository.empresa;
 
+import java.util.List;
 import java.util.Optional;
 
 import br.com.desafio.accenture.domain.model.Empresa;
@@ -23,5 +24,7 @@ public interface RepositorioDeEmpresa {
 	boolean existsByIdAndFornecedorId(Long idEmpresa, Long idFornecedor);
 
 	Empresa removerFornecedor(Long idFornecedor, Long idEmpresa);
+
+	List<Empresa> listarTodas();
 
 }
