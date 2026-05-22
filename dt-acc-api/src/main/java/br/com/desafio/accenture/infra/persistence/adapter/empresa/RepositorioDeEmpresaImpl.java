@@ -1,6 +1,8 @@
 package br.com.desafio.accenture.infra.persistence.adapter.empresa;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import br.com.desafio.accenture.application.mapper.empresa.EmpresaMapper;
 import br.com.desafio.accenture.domain.model.Empresa;
@@ -78,6 +80,11 @@ public class RepositorioDeEmpresaImpl implements RepositorioDeEmpresa {
 		FornecedorEntity fornecedorEntity = this.fornecedorRepository.getReferenceById(idFornecedor);
 		empresaEntity.getFornecedores().remove(fornecedorEntity);
 		return this.mapper.toDomain(empresaEntity);
+	}
+
+	@Override
+	public List<Empresa> listarTodas() {
+		return this.repository.findAll().stream().map(this.mapper::toDomain).collect(Collectors.toList());
 	}
 
 }
