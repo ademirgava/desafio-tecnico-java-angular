@@ -1,7 +1,7 @@
 <p>formulario-empresa.component works!</p>
 <div class="container">
   @if (isErro()) {
-    <label class="error">{{ mensagemDeErro() }}</label>
+    <h3 class="error">{{ mensagemDeErro() }}</h3>
   }
 
   <form class="row" [formGroup]="empresaForm" (ngSubmit)="salvarEmpresa()">
