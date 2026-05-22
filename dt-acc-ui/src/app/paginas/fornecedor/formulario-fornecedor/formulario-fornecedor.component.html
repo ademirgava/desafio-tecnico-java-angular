@@ -33,7 +33,17 @@
           id="cep"
           placeholder="00000-000"
           formControlName="cep"
-          (change)="onChangeCepla($event)"
+          (keyup)="onChangeViacep()"
+        />
+      </div>
+      <div class="col-4">
+        <label for="inputCidade" class="form-label">Cidade</label>
+        <input
+          type="text"
+          class="form-control"
+          id="cidade"
+          formControlName="cidade"
+          [readonly]="true"
         />
       </div>
       <div class="col-md-4">
@@ -65,7 +75,7 @@
             type="text"
             class="form-control"
             id="dataNascimento"
-            placeholder="01-01-1000"
+            placeholder="YYYY-MM-DD"
             formControlName="dataNascimento"
           />
         </div>

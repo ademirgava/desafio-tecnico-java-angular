@@ -8,11 +8,11 @@ import { Page } from '../../components/model/page';
   providedIn: 'root',
 })
 export class FornecedorService {
-  private readonly API = 'http://localhost:8080/api/fornecedores';
+  private readonly API = '/api/fornecedores';
   private http = inject(HttpClient);
 
   obterFornecedores(): Observable<Page> {
-    return this.http.get<Page>('/api/fornecedores');
+    return this.http.get<Page>(this.API);
   }
 
   obterFornecedoresPorNome(nome: string): Observable<Fornecedor[]> {

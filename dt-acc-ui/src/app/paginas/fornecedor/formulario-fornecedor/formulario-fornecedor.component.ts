@@ -3,9 +3,8 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { TipoPessoa } from '../../../components/model/tipoPessoa';
 import { CommonModule } from '@angular/common';
 import { FornecedorService } from '../../../service/fornecedor/fornecedor.service';
-import { Fornecedor } from '../../../components/model/fornecedor';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CeplaService } from '../../../service/cepla/cepla.service';
+import { ViacepService } from '../../../service/viacep/viacep.service';
 
 @Component({
   selector: 'app-formulario-fornecedor',
@@ -17,7 +16,7 @@ export class FormularioFornecedorComponent implements OnInit {
   private fornecedorService = inject(FornecedorService);
   private activatedRoute = inject(ActivatedRoute);
   private router = inject(Router);
-  private ceplaSerivce = inject(CeplaService);
+  private viacepService = inject(ViacepService);
 
   fornecedorForm!: FormGroup;
   tipos = Object.values(TipoPessoa);
@@ -37,14 +36,11 @@ export class FormularioFornecedorComponent implements OnInit {
       cnpj: new FormControl('', [Validators.minLength(14), Validators.maxLength(14)]),
       cpf: new FormControl('', [Validators.minLength(11), Validators.maxLength(11)]),
       nome: new FormControl('', [Validators.required, Validators.minLength(3)]),
-      cep: new FormControl('', [
-        Validators.required,
-        Validators.minLength(9),
-        Validators.maxLength(9),
-      ]),
+      cep: new FormControl('', [Validators.required, Validators.pattern(/^\d{5}-\d{3}$/)]),
+      cidade: new FormControl(''),
       email: new FormControl('', [Validators.required, Validators.email]),
       rg: new FormControl('', [Validators.minLength(9), Validators.maxLength(9)]),
-      dataNascimento: new FormControl('', Validators.pattern(/^\d{2}-\d{2}-\d{4}$/)),
+      dataNascimento: new FormControl('', Validators.pattern(/^\d{4}-\d{2}-\d{2}$/)),
     });
   }
 
@@ -63,7 +59,7 @@ export class FormularioFornecedorComponent implements OnInit {
       },
       error: (erro) => {
         this.isErro.set(true);
-        this.mensagemDeErro = erro.error;
+        this.mensagemDeErro.set(erro.error);
       },
     });
   }
@@ -71,17 +67,26 @@ export class FormularioFornecedorComponent implements OnInit {
   onTipoChange(event: Event): void {
     const valor = (event.target as HTMLSelectElement).value as TipoPessoa;
     this.selectedTipo.set(valor);
+    this.fornecedorForm.get('tipoPessoa')?.setValue(valor);
   }
 
   cancelar(): void {
     this.router.navigateByUrl('/lista-fornecedores');
   }
 
-  onChangeCepla(event: Event): void {
-    const valor = (event.target as HTMLSelectElement).value;
+  onChangeViacep(): void {
+    const valor = this.fornecedorForm.get('cep')?.value;
     if (valor.length == 9) {
-      this.ceplaSerivce.buscarCep(valor).subscribe((cep) => {
-        console.log(cep);
+      this.viacepService.buscarCep(valor).subscribe({
+        next: (endereco) => {
+          if (endereco) {
+            this.fornecedorForm.get('cidade')?.setValue(endereco.localidade);
+          }
+        },
+        error: (erro) => {
+          this.isErro.set(true);
+          this.mensagemDeErro.set('CEP não encontrado!');
+        },
       });
     }
   }
