@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { EmpresaService } from '../../../service/empresa/empresa.service';
 import { Router } from '@angular/router';
 import { Empresa } from '../../../components/model/empresa';
@@ -20,6 +20,7 @@ export class ListaEmpresasComponent implements OnInit {
   mensagemSemDados: string = 'Não há fornecedor cadastrado!';
   tableData: Array<Empresa> = [];
   dataSource: MatTableDataSource<Empresa> = new MatTableDataSource();
+  empresas = signal<Empresa[]>([]);
 
   tableColumns: Array<Column> = [
     {
@@ -53,6 +54,7 @@ export class ListaEmpresasComponent implements OnInit {
   ngOnInit(): void {
     this.empresaService.obterEmpresas().subscribe({
       next: (empresas) => {
+        this.empresas.set(empresas.itens);
         this.tableData = empresas.itens;
         this.dataSource = new MatTableDataSource(this.tableData);
       },

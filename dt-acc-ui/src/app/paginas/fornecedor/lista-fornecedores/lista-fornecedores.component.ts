@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { TableComponent } from '../../../components/table/table.component';
 import { Fornecedor } from '../../../components/model/fornecedor';
 import { MatTableDataSource } from '@angular/material/table';
@@ -19,6 +19,7 @@ export class ListaFornecedoresComponent implements OnInit {
   mensagemSemDados: string = 'Não há fornecedor cadastrado!';
   tableData: Array<Fornecedor> = [];
   dataSource: MatTableDataSource<Fornecedor> = new MatTableDataSource();
+  fornecedores = signal<Fornecedor[]>([]);
 
   tableColumns: Array<Column> = [
     {
@@ -66,6 +67,7 @@ export class ListaFornecedoresComponent implements OnInit {
 
   ngOnInit(): void {
     this.fornecedorService.obterFornecedores().subscribe((fornecedores) => {
+      this.fornecedores.set(fornecedores.itens);
       this.tableData = fornecedores.itens;
       this.dataSource = new MatTableDataSource(this.tableData);
     });
