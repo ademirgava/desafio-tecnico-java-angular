@@ -4,6 +4,7 @@ import { ListaEmpresasComponent } from './paginas/empresa/lista-empresas/lista-e
 import { FormularioEmpresaComponent } from './paginas/empresa/formulario-empresa/formulario-empresa.component';
 import { ListaFornecedoresComponent } from './paginas/fornecedor/lista-fornecedores/lista-fornecedores.component';
 import { FormularioFornecedorComponent } from './paginas/fornecedor/formulario-fornecedor/formulario-fornecedor.component';
+import { VincularFornecedorComponent } from './paginas/empresa/vincular-fornecedor/vincular-fornecedor.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -14,4 +15,5 @@ export const routes: Routes = [
   { path: 'lista-fornecedores', component: ListaFornecedoresComponent },
   { path: 'formulario-fornecedor', component: FormularioFornecedorComponent },
   { path: 'formulario-fornecedor/:id', component: FormularioFornecedorComponent },
+  { path: 'vincular-fornecedores/:id', component: VincularFornecedorComponent },
 ];

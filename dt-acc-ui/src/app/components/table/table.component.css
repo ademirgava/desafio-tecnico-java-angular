@@ -5,3 +5,11 @@
     padding: 16px;
     background-color: #fff;
 }
+
+.mat-mdc-row:nth-child(even){
+    background-color: #FFFFFF;
+}
+        
+.mat-mdc-row:nth-child(odd){
+    background-color: #a6d8a2;
+}

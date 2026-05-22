@@ -42,11 +42,31 @@ export class ListaEmpresasComponent implements OnInit {
       header: 'Cidade',
       cell: (element: Record<string, any>) => `${element['cidade']}`,
     },
+    {
+      columnDef: 'actions',
+      header: 'Ações',
+      cell: (element: Record<string, any>) => `${element['id']}`,
+      isVincular: true,
+    },
   ];
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.empresaService.obterEmpresas().subscribe({
+      next: (empresas) => {
+        this.tableData = empresas.itens;
+        this.dataSource = new MatTableDataSource(this.tableData);
+      },
+      error: (erro) => {
+        console.log(erro.error);
+      },
+    });
+  }
 
   novaEmpresa(): void {
     this.router.navigateByUrl('/formulario-empresa');
   }
+
+  handleVincular = (empresa: Empresa) => {
+    this.router.navigate(['/vincular-fornecedores', empresa.id]);
+  };
 }

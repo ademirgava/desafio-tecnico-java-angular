@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { Page } from '../../components/model/page';
 import { Observable } from 'rxjs';
 import { Empresa } from '../../components/model/empresa';
+import { EmpresaFornecedor } from '../../components/model/empresa-fornecedor';
 
 @Injectable({
   providedIn: 'root',
@@ -24,5 +25,20 @@ export class EmpresaService {
 
   editarEmpresa(empresa: Empresa): Observable<Empresa> {
     return this.http.put<Empresa>(`${this.API}/${empresa.id}`, empresa);
+  }
+
+  obterEmpresaPorId(id: number): Observable<Empresa> {
+    return this.http.get<Empresa>(`${this.API}/${id}`);
+  }
+
+  vincularFornecedor(empresaId: number, empresaFornecedor: EmpresaFornecedor): Observable<Empresa> {
+    return this.http.put<Empresa>(`${this.API}/vincular/${empresaId}`, empresaFornecedor);
+  }
+
+  desvicularFornecedor(
+    empresaId: number,
+    empresaFornecedor: EmpresaFornecedor,
+  ): Observable<Empresa> {
+    return this.http.put<Empresa>(`${this.API}/desvincular/${empresaId}`, empresaFornecedor);
   }
 }

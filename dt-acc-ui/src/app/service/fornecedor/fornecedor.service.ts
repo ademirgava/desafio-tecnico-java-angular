@@ -15,16 +15,16 @@ export class FornecedorService {
     return this.http.get<Page>(this.API);
   }
 
-  obterFornecedoresPorNome(nome: string): Observable<Fornecedor[]> {
-    return this.http.get<Fornecedor[]>(`${this.API}?nome=${nome}`);
+  obterFornecedoresPorNome(nome: string): Observable<Page> {
+    return this.http.get<Page>(`${this.API}?nome=${nome}`);
   }
 
-  obterFornecedoresPorCpf(cpf: string): Observable<Fornecedor[]> {
-    return this.http.get<Fornecedor[]>(`${this.API}?cpf=${cpf}`);
+  obterFornecedoresPorCpf(cpf: string): Observable<Page> {
+    return this.http.get<Page>(`${this.API}?cpf=${cpf}`);
   }
 
-  obterFornecedoresPorCnpj(cnpj: string): Observable<Fornecedor[]> {
-    return this.http.get<Fornecedor[]>(`${this.API}?cnpj=${cnpj}`);
+  obterFornecedoresPorCnpj(cnpj: string): Observable<Page> {
+    return this.http.get<Page>(`${this.API}?cnpj=${cnpj}`);
   }
 
   salvarOuEditarFornecedor(fornecedor: Fornecedor): Observable<Fornecedor> {

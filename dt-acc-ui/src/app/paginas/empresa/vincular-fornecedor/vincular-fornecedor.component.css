@@ -1,0 +1,13 @@
+.selecao {
+    display: flex;
+    flex-flow: wrap;
+    margin-top: 10px;
+}
+
+.informacoes {
+    width: 80%;
+}
+
+.lista {
+    padding: 0.5%;
+}
