@@ -1,1 +1,21 @@
-<p>lista-empresas.component works!</p>
+<div class="container">
+  <div class="row align-items-start">
+    <div class="col-4">
+      <h3>Empresas</h3>
+    </div>
+    <div class="col-8 d-flex justify-content-end">
+      <button type="button" class="btn btn-success" (click)="novaEmpresa()">Nova Empresa</button>
+    </div>
+  </div>
+  <div class="row align-items-start">
+    <div class="tabela">
+      <app-table
+        [tableColumns]="tableColumns"
+        [dataSource]="dataSource"
+        [mensagemSemDados]="mensagemSemDados"
+        [vincularCallback]="handleVincular"
+      >
+      </app-table>
+    </div>
+  </div>
+</div>

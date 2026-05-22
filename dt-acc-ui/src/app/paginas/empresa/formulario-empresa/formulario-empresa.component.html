@@ -1,1 +1,67 @@
 <p>formulario-empresa.component works!</p>
+<div class="container">
+  @if (isErro()) {
+    <label class="error">{{ mensagemDeErro() }}</label>
+  }
+
+  <form class="row" [formGroup]="empresaForm" (ngSubmit)="salvarEmpresa()">
+    <div class="row g-3 col-md-12 dados">
+      <div class="col-8">
+        <label for="inputNome" class="form-label">Nome</label>
+        <input
+          type="text"
+          class="form-control"
+          id="nomeFantasia"
+          placeholder="Nome"
+          formControlName="nomeFantasia"
+        />
+      </div>
+      <div class="col-md-4">
+        <label for="inputCnpj" class="form-label">CNPJ</label>
+        <input
+          type="text"
+          class="form-control"
+          id="cnpj"
+          placeholder="CNPJ"
+          formControlName="cnpj"
+        />
+      </div>
+      <div class="col-4">
+        <label for="inputCep" class="form-label">CEP</label>
+        <input
+          type="text"
+          class="form-control"
+          id="cep"
+          placeholder="00000-000"
+          formControlName="cep"
+          (keyup)="onChangeViacep()"
+        />
+      </div>
+      <div class="col-4">
+        <label for="inputCidade" class="form-label">Cidade</label>
+        <input
+          type="text"
+          class="form-control"
+          id="cidade"
+          formControlName="cidade"
+          [readonly]="true"
+        />
+      </div>
+
+      <div class="col-md-6"></div>
+    </div>
+    <div class="col-md-4">
+      <button
+        class="btn btn-primary"
+        [disabled]="empresaForm.invalid"
+        [ngClass]="empresaForm.valid ? '' : 'btn btn-light'"
+        type="submit"
+      >
+        Salvar
+      </button>
+    </div>
+    <div class="col-md-4">
+      <button (click)="cancelar()" type="button" class="btn btn-danger">Cancelar</button>
+    </div>
+  </form>
+</div>

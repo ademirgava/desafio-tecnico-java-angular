@@ -1,0 +1,44 @@
+import { HttpClient } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
+import { Page } from '../../components/model/page';
+import { Observable } from 'rxjs';
+import { Empresa } from '../../components/model/empresa';
+import { EmpresaFornecedor } from '../../components/model/empresa-fornecedor';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class EmpresaService {
+  private readonly API = '/api/empresas';
+  private http = inject(HttpClient);
+
+  obterEmpresas(): Observable<Page> {
+    return this.http.get<Page>(this.API);
+  }
+
+  salvarOuEditar(empresa: Empresa): Observable<Empresa> {
+    if (empresa.id) {
+      return this.editarEmpresa(empresa);
+    }
+    return this.http.post<Empresa>(this.API, empresa);
+  }
+
+  editarEmpresa(empresa: Empresa): Observable<Empresa> {
+    return this.http.put<Empresa>(`${this.API}/${empresa.id}`, empresa);
+  }
+
+  obterEmpresaPorId(id: number): Observable<Empresa> {
+    return this.http.get<Empresa>(`${this.API}/${id}`);
+  }
+
+  vincularFornecedor(empresaId: number, empresaFornecedor: EmpresaFornecedor): Observable<Empresa> {
+    return this.http.put<Empresa>(`${this.API}/vincular/${empresaId}`, empresaFornecedor);
+  }
+
+  desvicularFornecedor(
+    empresaId: number,
+    empresaFornecedor: EmpresaFornecedor,
+  ): Observable<Empresa> {
+    return this.http.put<Empresa>(`${this.API}/desvincular/${empresaId}`, empresaFornecedor);
+  }
+}

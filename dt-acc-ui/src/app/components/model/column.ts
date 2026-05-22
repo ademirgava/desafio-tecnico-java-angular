@@ -3,4 +3,5 @@ export interface Column {
   header: string;
   cell: Function;
   isDate?: boolean;
+  isVincular?: boolean;
 }

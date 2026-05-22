@@ -13,6 +13,7 @@ export class TableComponent<T> implements OnInit {
   @Input() tableColumns: Array<Column> = [];
   @Input() dataSource: MatTableDataSource<T> = new MatTableDataSource();
   @Input() mensagemSemDados!: string;
+  @Input() vincularCallback!: (args: T) => void;
 
   tableData: Array<T> = [];
   displayedColumns: Array<string> = [];
@@ -26,4 +27,10 @@ export class TableComponent<T> implements OnInit {
   temDados = () => {
     return this.dataSource.data.length > 0;
   };
+
+  vincularFornecedores(element: T): void {
+    if (this.vincularCallback) {
+      this.vincularCallback(element);
+    }
+  }
 }
