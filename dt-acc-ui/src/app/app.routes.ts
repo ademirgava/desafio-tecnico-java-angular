@@ -10,6 +10,8 @@ export const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'lista-empresas', component: ListaEmpresasComponent },
   { path: 'formulario-empresa', component: FormularioEmpresaComponent },
+  { path: 'formulario-empresa/:id', component: FormularioEmpresaComponent },
   { path: 'lista-fornecedores', component: ListaFornecedoresComponent },
   { path: 'formulario-fornecedor', component: FormularioFornecedorComponent },
+  { path: 'formulario-fornecedor/:id', component: FormularioFornecedorComponent },
 ];

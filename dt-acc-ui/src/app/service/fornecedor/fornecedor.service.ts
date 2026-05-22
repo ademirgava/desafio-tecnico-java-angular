@@ -8,7 +8,7 @@ import { Page } from '../../components/model/page';
   providedIn: 'root',
 })
 export class FornecedorService {
-  private readonly API = 'http://localhost:8080/api/fornecedores';
+  private readonly API = '/api/fornecedores';
   private http = inject(HttpClient);
 
   obterFornecedores(): Observable<Page> {
@@ -27,7 +27,14 @@ export class FornecedorService {
     return this.http.get<Fornecedor[]>(`${this.API}?cnpj=${cnpj}`);
   }
 
-  salvarFornecedor(fornecedor: Fornecedor): Observable<Fornecedor> {
+  salvarOuEditarFornecedor(fornecedor: Fornecedor): Observable<Fornecedor> {
+    if (fornecedor.id) {
+      return this.editarFornecedor(fornecedor);
+    }
     return this.http.post<Fornecedor>(this.API, fornecedor);
+  }
+
+  editarFornecedor(fornecedor: Fornecedor): Observable<Fornecedor> {
+    return this.http.put<Fornecedor>(`${this.API}/${fornecedor.id}`, fornecedor);
   }
 }
